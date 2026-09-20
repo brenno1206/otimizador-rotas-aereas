@@ -80,18 +80,12 @@ class Grafo:
             peso (float/int): Distancia em km entre dois aeroportos
         """
         # inicializa a lista de adjacencias dos vertices, caso ainda nao exista
-        if origem not in self.adjacencias:
-            self.adjacencias[origem] = []
-        if destino not in self.adjacencias:
-            self.adjacencias[destino] = []
+        self.adjacencias.setdefault(origem, [])
+        self.adjacencias.setdefault(destino, [])
 
-        # verifica se aresta ja existe na origem, se nao, adicona
+        # aresta direcionada: so existe no sentido origem -> destino
         if (destino, peso) not in self.adjacencias[origem]:
-            self.adjacencias[origem].append((destino,peso))
-
-        # verificar se aresta ja existe no destino, se nao. adicona
-        if (origem, peso) not in self.adjacencias[destino]:
-            self.adjacencias[destino].append((origem,peso))
+            self.adjacencias[origem].append((destino, peso))
 
     def _obter_vizinhos(self, IATA):
         """
